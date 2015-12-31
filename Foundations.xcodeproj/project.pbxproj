@@ -10,6 +10,7 @@
 		B2AD6E111C35719600D9E52F /* Foundations.h in Headers */ = {isa = PBXBuildFile; fileRef = B2AD6E101C35719600D9E52F /* Foundations.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B2AD6E181C35719600D9E52F /* Foundations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2AD6E0D1C35719600D9E52F /* Foundations.framework */; };
 		B2AD6E1D1C35719600D9E52F /* FoundationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AD6E1C1C35719600D9E52F /* FoundationsTests.swift */; };
+		B2AD6E281C3572C600D9E52F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AD6E271C3572C600D9E52F /* StringExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		B2AD6E171C35719600D9E52F /* FoundationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoundationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2AD6E1C1C35719600D9E52F /* FoundationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationsTests.swift; sourceTree = "<group>"; };
 		B2AD6E1E1C35719600D9E52F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2AD6E271C3572C600D9E52F /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				B2AD6E101C35719600D9E52F /* Foundations.h */,
 				B2AD6E121C35719600D9E52F /* Info.plist */,
+				B2AD6E271C3572C600D9E52F /* StringExtensions.swift */,
 			);
 			path = Foundations;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2AD6E281C3572C600D9E52F /* StringExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +312,7 @@
 		B2AD6E221C35719600D9E52F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -318,12 +323,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = SwiftToolkit.Foundations;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		B2AD6E231C35719600D9E52F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
