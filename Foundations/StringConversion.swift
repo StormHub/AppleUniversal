@@ -2,8 +2,6 @@
 import Foundation
 
 public extension String {
-    
-    
     /*
      Parse the ISO format string into NSDate.
     
@@ -59,13 +57,10 @@ public extension String {
         }
         
         // get all components
-        let calendar = NSCalendar.currentCalendar()
-        calendar.timeZone = NSTimeZone(abbreviation:"UTC")!
-        let components = calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Second, .Nanosecond], fromDate: dateValue!)
+        let components =  NSCalendar.currentAtUniversal.components([.Year, .Month, .Day, .Hour, .Minute, .Second, .Nanosecond], fromDate: dateValue!)
         components.nanosecond = nanoSecond!
         
-        
-        return calendar.dateFromComponents(components)
+        return NSCalendar.currentAtUniversal.dateFromComponents(components)
     }
     
 }

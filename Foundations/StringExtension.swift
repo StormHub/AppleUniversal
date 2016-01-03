@@ -23,7 +23,7 @@ public extension String {
         var index : String.Index? = nil
         
         while range != nil {
-            index = range?.startIndex
+            index = range!.startIndex
             
             let indexRange = Range(start: range!.endIndex, end: self.endIndex)
             range = self.rangeOfString(target, options: NSStringCompareOptions.LiteralSearch, range: indexRange)
