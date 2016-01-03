@@ -14,6 +14,9 @@
 		B23547D51C37F471002C50EE /* StringConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B205986E1C37970200C3D6F2 /* StringConversion.swift */; };
 		B28799141C38976F006DACFA /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28799131C38976F006DACFA /* StringExtensionTests.swift */; };
 		B28799161C38A72C006DACFA /* NSDateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28799151C38A72C006DACFA /* NSDateExtensionTests.swift */; };
+		B28799181C38D80A006DACFA /* DurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28799171C38D80A006DACFA /* DurationExtension.swift */; };
+		B287991A1C38DF84006DACFA /* DurationExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28799191C38DF84006DACFA /* DurationExtensionTests.swift */; };
+		B287991B1C38E17D006DACFA /* DurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28799171C38D80A006DACFA /* DurationExtension.swift */; };
 		B2AD6E111C35719600D9E52F /* Foundations.h in Headers */ = {isa = PBXBuildFile; fileRef = B2AD6E101C35719600D9E52F /* Foundations.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B2AD6E181C35719600D9E52F /* Foundations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2AD6E0D1C35719600D9E52F /* Foundations.framework */; };
 		B2AD6E1D1C35719600D9E52F /* StringToNSDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AD6E1C1C35719600D9E52F /* StringToNSDateTests.swift */; };
@@ -35,6 +38,8 @@
 		B20598721C3799BF00C3D6F2 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		B28799131C38976F006DACFA /* StringExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
 		B28799151C38A72C006DACFA /* NSDateExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionTests.swift; sourceTree = "<group>"; };
+		B28799171C38D80A006DACFA /* DurationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationExtension.swift; sourceTree = "<group>"; };
+		B28799191C38DF84006DACFA /* DurationExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationExtensionTests.swift; sourceTree = "<group>"; };
 		B2AD6E0D1C35719600D9E52F /* Foundations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Foundations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2AD6E101C35719600D9E52F /* Foundations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Foundations.h; sourceTree = "<group>"; };
 		B2AD6E121C35719600D9E52F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,6 +74,7 @@
 				B2AD6E271C3572C600D9E52F /* StringExtension.swift */,
 				B205986E1C37970200C3D6F2 /* StringConversion.swift */,
 				B20598721C3799BF00C3D6F2 /* NSDateExtension.swift */,
+				B28799171C38D80A006DACFA /* DurationExtension.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -107,6 +113,7 @@
 				B2AD6E1C1C35719600D9E52F /* StringToNSDateTests.swift */,
 				B28799131C38976F006DACFA /* StringExtensionTests.swift */,
 				B28799151C38A72C006DACFA /* NSDateExtensionTests.swift */,
+				B28799191C38DF84006DACFA /* DurationExtensionTests.swift */,
 				B2AD6E1E1C35719600D9E52F /* Info.plist */,
 			);
 			path = FoundationsTests;
@@ -221,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2AD6E281C3572C600D9E52F /* StringExtension.swift in Sources */,
+				B28799181C38D80A006DACFA /* DurationExtension.swift in Sources */,
 				B23547D51C37F471002C50EE /* StringConversion.swift in Sources */,
 				B20598731C3799BF00C3D6F2 /* NSDateExtension.swift in Sources */,
 			);
@@ -231,9 +239,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B28799161C38A72C006DACFA /* NSDateExtensionTests.swift in Sources */,
+				B287991A1C38DF84006DACFA /* DurationExtensionTests.swift in Sources */,
 				B20598701C3797AF00C3D6F2 /* StringExtension.swift in Sources */,
 				B20598741C379B4800C3D6F2 /* NSDateExtension.swift in Sources */,
 				B20598711C3797B200C3D6F2 /* StringConversion.swift in Sources */,
+				B287991B1C38E17D006DACFA /* DurationExtension.swift in Sources */,
 				B28799141C38976F006DACFA /* StringExtensionTests.swift in Sources */,
 				B2AD6E1D1C35719600D9E52F /* StringToNSDateTests.swift in Sources */,
 			);
