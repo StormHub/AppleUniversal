@@ -50,8 +50,9 @@ public protocol JsonResponseHandler {
 */
 public class HttpClientProxy {
     
-    let HttpOkStatusCode = 200
+    private let HttpOkStatusCode = 200
     private let HttpGetMethodName = "GET"
+    private let HttpPostMethodName = "POST"
     
     private let url:String
     
@@ -68,9 +69,25 @@ public class HttpClientProxy {
     }
     
     /*
-       Requests the url for HTTP Get method with optional HTTP body data
+      Requests the url for HTTP Get method with optional HTTP body data
     */
     public func get(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
+        let request = createRequest(HttpGetMethodName, bodyData: bodyData)
+        execute(request, responseHandler: responseHandler)
+    }
+    
+    /*
+      Requests the url for HTTP POST method with optional HTTP body data
+    */
+    public func post(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
+        let request = createRequest(HttpPostMethodName, bodyData:bodyData)
+        execute(request, responseHandler: responseHandler)
+    }
+    
+    /*
+       Creates the HTTP request instances.
+    */
+    private func createRequest(method:String, bodyData: NSData? = nil) -> NSMutableURLRequest {
         let nsUrl = NSURL(string: self.url)
         let request = NSMutableURLRequest(URL: nsUrl!)
         
@@ -78,8 +95,15 @@ public class HttpClientProxy {
             request.HTTPBody = data
         }
         
-        request.HTTPMethod = HttpGetMethodName
+        request.HTTPMethod = method
         
+        return request;
+    }
+    
+    /*
+       Executes the request for share HTTP session
+    */
+    private func execute(request: NSMutableURLRequest, responseHandler: JsonResponseHandler) {
         let session =  NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request, completionHandler: {(data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
             
@@ -93,12 +117,9 @@ public class HttpClientProxy {
                     responseHandler.handleError(CommunicationError.BadResponse(content: response!.description))
                     return
             }
-            
-            guard data != nil else {
-                responseHandler.handleError(CommunicationError.BadResponse(content: response!.description))
+            if data == nil {
                 return
             }
-            
             
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions.MutableContainers)
@@ -125,5 +146,4 @@ public class HttpClientProxy {
         
         task.resume()
     }
-    
 }
