@@ -17,6 +17,7 @@
 		B28799181C38D80A006DACFA /* DurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28799171C38D80A006DACFA /* DurationExtension.swift */; };
 		B287991A1C38DF84006DACFA /* DurationExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28799191C38DF84006DACFA /* DurationExtensionTests.swift */; };
 		B287991B1C38E17D006DACFA /* DurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28799171C38D80A006DACFA /* DurationExtension.swift */; };
+		B29738FF1C3A54D80066BCC6 /* ClientProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29738FE1C3A54D80066BCC6 /* ClientProxy.swift */; };
 		B2AD6E111C35719600D9E52F /* Foundations.h in Headers */ = {isa = PBXBuildFile; fileRef = B2AD6E101C35719600D9E52F /* Foundations.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B2AD6E181C35719600D9E52F /* Foundations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2AD6E0D1C35719600D9E52F /* Foundations.framework */; };
 		B2AD6E1D1C35719600D9E52F /* StringToNSDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AD6E1C1C35719600D9E52F /* StringToNSDateTests.swift */; };
@@ -40,6 +41,7 @@
 		B28799151C38A72C006DACFA /* NSDateExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionTests.swift; sourceTree = "<group>"; };
 		B28799171C38D80A006DACFA /* DurationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationExtension.swift; sourceTree = "<group>"; };
 		B28799191C38DF84006DACFA /* DurationExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationExtensionTests.swift; sourceTree = "<group>"; };
+		B29738FE1C3A54D80066BCC6 /* ClientProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientProxy.swift; sourceTree = "<group>"; };
 		B2AD6E0D1C35719600D9E52F /* Foundations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Foundations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2AD6E101C35719600D9E52F /* Foundations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Foundations.h; sourceTree = "<group>"; };
 		B2AD6E121C35719600D9E52F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,6 +81,14 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
+		B29738FD1C3A54AC0066BCC6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				B29738FE1C3A54D80066BCC6 /* ClientProxy.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
 		B2AD6E031C35719600D9E52F = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +110,7 @@
 		B2AD6E0F1C35719600D9E52F /* Foundations */ = {
 			isa = PBXGroup;
 			children = (
+				B29738FD1C3A54AC0066BCC6 /* Networking */,
 				B205986D1C378FD200C3D6F2 /* Common */,
 				B2AD6E101C35719600D9E52F /* Foundations.h */,
 				B2AD6E121C35719600D9E52F /* Info.plist */,
@@ -229,6 +240,7 @@
 			files = (
 				B2AD6E281C3572C600D9E52F /* StringExtension.swift in Sources */,
 				B28799181C38D80A006DACFA /* DurationExtension.swift in Sources */,
+				B29738FF1C3A54D80066BCC6 /* ClientProxy.swift in Sources */,
 				B23547D51C37F471002C50EE /* StringConversion.swift in Sources */,
 				B20598731C3799BF00C3D6F2 /* NSDateExtension.swift in Sources */,
 			);
