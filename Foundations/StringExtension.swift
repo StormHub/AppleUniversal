@@ -31,5 +31,14 @@ public extension String {
         
         return index;
     }
-   
+    
+    /*
+    Splits words based on camel case.
+    */
+    public var split:String {
+        var result = self
+        result = result.stringByReplacingOccurrencesOfString("([a-z])([A-Z])", withString: "$1 $2", options: NSStringCompareOptions.RegularExpressionSearch, range: Range<String.Index>(start: result.startIndex, end: result.endIndex))
+        result.replaceRange(result.startIndex...result.startIndex, with: String(result[result.startIndex]).capitalizedString)
+        return result
+    }
 }

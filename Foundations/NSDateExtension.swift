@@ -121,6 +121,18 @@ public extension NSDate {
     public var nanoSecond : Int {
         return NSCalendar.currentAtUniversal.component(NSCalendarUnit.Nanosecond, fromDate: self)
     }
+    
+    /*
+    Formats the date in medium style.
+    */
+    public var mediumStyle: String {
+        
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .MediumStyle
+        formatter.timeStyle = .MediumStyle
+        
+        return formatter.stringFromDate(self)
+    }
 }
 
 public extension NSCalendar {
