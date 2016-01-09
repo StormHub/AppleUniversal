@@ -113,7 +113,7 @@ public class HttpClientProxy {
             }
             
             guard let httpResponse = response as? NSHTTPURLResponse where
-                httpResponse.statusCode == self.HttpOkStatusCode else {
+                httpResponse.statusCode != self.HttpOkStatusCode else {
                     responseHandler.handleError(CommunicationError.BadResponse(content: response!.description))
                     return
             }
