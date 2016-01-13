@@ -22,6 +22,7 @@
 		B2AD6E181C35719600D9E52F /* Foundations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2AD6E0D1C35719600D9E52F /* Foundations.framework */; };
 		B2AD6E1D1C35719600D9E52F /* StringToNSDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AD6E1C1C35719600D9E52F /* StringToNSDateTests.swift */; };
 		B2AD6E281C3572C600D9E52F /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AD6E271C3572C600D9E52F /* StringExtension.swift */; };
+		B2CD1FC31C42E9820090C869 /* UIActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CD1FC21C42E9820090C869 /* UIActivityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		B2AD6E1C1C35719600D9E52F /* StringToNSDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringToNSDateTests.swift; sourceTree = "<group>"; };
 		B2AD6E1E1C35719600D9E52F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2AD6E271C3572C600D9E52F /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		B2CD1FC21C42E9820090C869 /* UIActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 		B2AD6E031C35719600D9E52F = {
 			isa = PBXGroup;
 			children = (
+				B2CD1FC11C42E9720090C869 /* Views */,
 				B2AD6E0F1C35719600D9E52F /* Foundations */,
 				B2AD6E1B1C35719600D9E52F /* FoundationsTests */,
 				B2AD6E0E1C35719600D9E52F /* Products */,
@@ -128,6 +131,14 @@
 				B2AD6E1E1C35719600D9E52F /* Info.plist */,
 			);
 			path = FoundationsTests;
+			sourceTree = "<group>";
+		};
+		B2CD1FC11C42E9720090C869 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B2CD1FC21C42E9820090C869 /* UIActivityView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +252,7 @@
 				B2AD6E281C3572C600D9E52F /* StringExtension.swift in Sources */,
 				B28799181C38D80A006DACFA /* DurationExtension.swift in Sources */,
 				B29738FF1C3A54D80066BCC6 /* ClientProxy.swift in Sources */,
+				B2CD1FC31C42E9820090C869 /* UIActivityView.swift in Sources */,
 				B23547D51C37F471002C50EE /* StringConversion.swift in Sources */,
 				B20598731C3799BF00C3D6F2 /* NSDateExtension.swift in Sources */,
 			);

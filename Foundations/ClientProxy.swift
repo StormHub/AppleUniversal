@@ -53,6 +53,8 @@ public class HttpClientProxy {
     private let HttpOkStatusCode = 200
     private let HttpGetMethodName = "GET"
     private let HttpPostMethodName = "POST"
+    private let httpPutMethodName = "PUT"
+    private let httpDeleteMethodName = "DELETE"
     
     private let url:String
     
@@ -81,6 +83,22 @@ public class HttpClientProxy {
     */
     public func post(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
         let request = createRequest(HttpPostMethodName, bodyData:bodyData)
+        execute(request, responseHandler: responseHandler)
+    }
+    
+    /*
+    Requests the url for HTTP PUT method with optional HTTP body data
+    */
+    public func put(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
+        let request = createRequest(httpPutMethodName, bodyData:bodyData)
+        execute(request, responseHandler: responseHandler)
+    }
+
+    /*
+    Requests the url for HTTP PUT method with optional HTTP body data
+    */
+    public func delete(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
+        let request = createRequest(httpDeleteMethodName, bodyData:bodyData)
         execute(request, responseHandler: responseHandler)
     }
     
