@@ -16,6 +16,11 @@ public enum CommunicationError : ErrorType {
        Indicates the response is not OK status
      */
     case BadResponse(content: String)
+    
+    /*
+       Indicates the response is not the three possible JSON body
+    */
+    case UnknownResponseType
 }
 
 /*
@@ -151,12 +156,17 @@ public class HttpClientProxy {
                 // JSON array
                 if let array = json as? Array<AnyObject> {
                     responseHandler.handleArrayData(array)
+                    return
                 }
                 
                 // JSON object
                 if let objectData = json as? NSObject {
                     responseHandler.handleData(objectData)
+                     return
                 }
+                
+                // Unknown
+                responseHandler.handleError(CommunicationError.UnknownResponseType)
             } catch {
                 responseHandler.handleError(CommunicationError.BadResponse(content:data!.description))
             }
