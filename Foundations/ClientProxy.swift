@@ -20,7 +20,7 @@ public enum CommunicationError : ErrorType {
     /*
        Indicates the response is not the three possible JSON body
     */
-    case UnknownResponseType
+    case UnknownResponseType(content: String)
 }
 
 /*
@@ -166,7 +166,7 @@ public class HttpClientProxy {
                 }
                 
                 // Unknown
-                responseHandler.handleError(CommunicationError.UnknownResponseType)
+                responseHandler.handleError(CommunicationError.UnknownResponseType(content: data!.description))
             } catch {
                 responseHandler.handleError(CommunicationError.BadResponse(content:data!.description))
             }
