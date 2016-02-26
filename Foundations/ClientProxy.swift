@@ -56,10 +56,13 @@ public protocol JsonResponseHandler {
 public class HttpClientProxy {
     
     private let HttpOkStatusCode = 200
-    private let HttpGetMethodName = "GET"
-    private let HttpPostMethodName = "POST"
-    private let httpPutMethodName = "PUT"
-    private let httpDeleteMethodName = "DELETE"
+    
+    private struct HttpMethod {
+        static let Get = "GET"
+        static let Post = "POST"
+        static let Put = "PUT"
+        static let Delete = "DELETE"
+    }
     
     private let url:String
     
@@ -79,7 +82,7 @@ public class HttpClientProxy {
       Requests the url for HTTP Get method with optional HTTP body data
     */
     public func get(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
-        let request = createRequest(HttpGetMethodName, bodyData: bodyData)
+        let request = createRequest(HttpMethod.Get, bodyData: bodyData)
         execute(request, responseHandler: responseHandler)
     }
     
@@ -87,7 +90,7 @@ public class HttpClientProxy {
       Requests the url for HTTP POST method with optional HTTP body data
     */
     public func post(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
-        let request = createRequest(HttpPostMethodName, bodyData:bodyData)
+        let request = createRequest(HttpMethod.Post, bodyData:bodyData)
         execute(request, responseHandler: responseHandler)
     }
     
@@ -95,7 +98,7 @@ public class HttpClientProxy {
     Requests the url for HTTP PUT method with optional HTTP body data
     */
     public func put(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
-        let request = createRequest(httpPutMethodName, bodyData:bodyData)
+        let request = createRequest(HttpMethod.Put, bodyData:bodyData)
         execute(request, responseHandler: responseHandler)
     }
 
@@ -103,7 +106,7 @@ public class HttpClientProxy {
     Requests the url for HTTP PUT method with optional HTTP body data
     */
     public func delete(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
-        let request = createRequest(httpDeleteMethodName, bodyData:bodyData)
+        let request = createRequest(HttpMethod.Delete, bodyData:bodyData)
         execute(request, responseHandler: responseHandler)
     }
     
@@ -139,9 +142,6 @@ public class HttpClientProxy {
                 httpResponse.statusCode != self.HttpOkStatusCode else {
                     responseHandler.handleError(CommunicationError.BadResponse(content: response!.description))
                     return
-            }
-            if data == nil {
-                return
             }
             
             do {
