@@ -25,7 +25,7 @@ public extension String {
         while range != nil {
             index = range!.startIndex
             
-            let indexRange = Range(start: range!.endIndex, end: self.endIndex)
+            let indexRange = range!.endIndex..<self.endIndex
             range = self.rangeOfString(target, options: NSStringCompareOptions.LiteralSearch, range: indexRange)
         }
         
@@ -37,7 +37,8 @@ public extension String {
     */
     public var split:String {
         var result = self
-        result = result.stringByReplacingOccurrencesOfString("([a-z])([A-Z])", withString: "$1 $2", options: NSStringCompareOptions.RegularExpressionSearch, range: Range<String.Index>(start: result.startIndex, end: result.endIndex))
+        let range = result.startIndex..<result.endIndex
+        result = result.stringByReplacingOccurrencesOfString("([a-z])([A-Z])", withString: "$1 $2", options: NSStringCompareOptions.RegularExpressionSearch, range:range)
         result.replaceRange(result.startIndex...result.startIndex, with: String(result[result.startIndex]).capitalizedString)
         return result
     }

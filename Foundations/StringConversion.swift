@@ -48,7 +48,7 @@ public extension String {
         
         // only takes up to milliseconds
         if lastPart!.length > 3 {
-            lastPart = lastPart!.substringWithRange(Range<Index>(start: lastPart!.startIndex, end: lastPart!.startIndex.advancedBy(3)))
+            lastPart = lastPart!.substringWithRange(lastPart!.startIndex..<lastPart!.startIndex.advancedBy(3))
         }
 
         let nanoSecond = Int(lastPart!)
