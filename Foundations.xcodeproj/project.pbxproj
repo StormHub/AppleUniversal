@@ -13,6 +13,7 @@
 		B20598741C379B4800C3D6F2 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20598721C3799BF00C3D6F2 /* NSDateExtension.swift */; };
 		B20DE1661CCB21E100E72FA5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20DE1651CCB21E100E72FA5 /* ImagePicker.swift */; };
 		B23547D51C37F471002C50EE /* StringConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B205986E1C37970200C3D6F2 /* StringConversion.swift */; };
+		B25B58011CCDA766009EEFD9 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25B58001CCDA766009EEFD9 /* RefreshControl.swift */; };
 		B2677C611CCB89570091D80E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2677C601CCB89570091D80E /* ActivityIndicator.swift */; };
 		B28799141C38976F006DACFA /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28799131C38976F006DACFA /* StringExtensionTests.swift */; };
 		B28799161C38A72C006DACFA /* NSDateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28799151C38A72C006DACFA /* NSDateExtensionTests.swift */; };
@@ -40,6 +41,7 @@
 		B205986E1C37970200C3D6F2 /* StringConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringConversion.swift; sourceTree = "<group>"; };
 		B20598721C3799BF00C3D6F2 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		B20DE1651CCB21E100E72FA5 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		B25B58001CCDA766009EEFD9 /* RefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
 		B2677C601CCB89570091D80E /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		B28799131C38976F006DACFA /* StringExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
 		B28799151C38A72C006DACFA /* NSDateExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionTests.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			children = (
 				B20DE1651CCB21E100E72FA5 /* ImagePicker.swift */,
 				B2677C601CCB89570091D80E /* ActivityIndicator.swift */,
+				B25B58001CCDA766009EEFD9 /* RefreshControl.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				B2677C611CCB89570091D80E /* ActivityIndicator.swift in Sources */,
 				B23547D51C37F471002C50EE /* StringConversion.swift in Sources */,
 				B20598731C3799BF00C3D6F2 /* NSDateExtension.swift in Sources */,
+				B25B58011CCDA766009EEFD9 /* RefreshControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

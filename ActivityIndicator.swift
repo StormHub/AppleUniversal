@@ -9,7 +9,7 @@ public class ActivityIndicator: UIView {
         
         static let defaultLineWidth = CGFloat(4)
         static let defaultRadius = CGFloat(14)
-        static let margin = CGFloat(6)
+        static let margin = CGFloat(4)
         
         static let startAngle = CGFloat(-M_PI / 2)  // Start circle from the top
         static let totalAngle = CGFloat(2 * M_PI)  // Full circle
@@ -31,13 +31,18 @@ public class ActivityIndicator: UIView {
                 progress = 0
             }
             
-            if !animating {
+            if !animating
+                && superview != nil {
                 layoutSubviews()
             }
         }
     }
     
-    private var animating:Bool = false {
+    public var isAnimating: Bool {
+        return animating
+    }
+    
+    private var animating: Bool = false {
         didSet {
             if !animating {
                 layoutSubviews()
@@ -68,7 +73,7 @@ public class ActivityIndicator: UIView {
         }
     }
     
-    class var poses: [Pose] {
+    private class var poses: [Pose] {
         get {
             return [
                 Pose(0.0, 0.000, 0.7),
@@ -126,6 +131,7 @@ public class ActivityIndicator: UIView {
         animation.calculationMode = kCAAnimationLinear
         animation.duration = duration
         animation.repeatCount = Float.infinity
+        
         layerLoader.addAnimation(animation, forKey: animation.keyPath)
     }
     
@@ -142,6 +148,7 @@ public class ActivityIndicator: UIView {
         animation.duration = duration
         animation.calculationMode = kCAAnimationLinear
         animation.repeatCount = Float.infinity
+        
         layerLoader.addAnimation(animation, forKey: animation.keyPath)
     }
     
@@ -152,9 +159,17 @@ public class ActivityIndicator: UIView {
         }
     }
     
-    override public func layoutSubviews() {
-        super.layoutSubviews()
+    private func getLayoutCenter(superView:UIView) -> CGPoint {
+        let frame = superView.frame
+        let width = frame.size.width / 2 // Center of the super view
+        let height = frame.size.height - (Constants.defaultRadius * 2) - Constants.margin
+        let origin = frame.origin
         
+        let center = CGPoint(x: origin.x + width, y: origin.y + height)
+        return center
+    }
+    
+    override public func layoutSubviews() {
         if let superview = superview {
             if layerSeparator.superlayer == nil {
                 superview.layer.addSublayer(layerSeparator)
@@ -163,7 +178,7 @@ public class ActivityIndicator: UIView {
                 superview.layer.addSublayer(layerLoader)
             }
             
-            let center = CGPoint(x: superview.bounds.midX, y: superview.frame.height - (Constants.defaultRadius * 2) - Constants.margin)
+            let center = getLayoutCenter(superview)
             
             let endAngle = Constants.totalAngle *  CGFloat(progress) + Constants.startAngle
             let progressPath = UIBezierPath(arcCenter: center, radius: Constants.defaultRadius, startAngle: Constants.startAngle, endAngle: endAngle, clockwise: true)
