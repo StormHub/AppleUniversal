@@ -42,7 +42,7 @@ public class RefreshControl : UIControl {
             UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
                 view.contentInset = UIEdgeInsetsMake(Constants.defaultHeight, 0, 0, 0)
                 view.contentOffset = CGPoint(x: 0, y: -Constants.defaultHeight)
-                }, completion: nil)
+            }, completion: nil)
             
             indicator.beginAnimation()
         }
@@ -54,7 +54,7 @@ public class RefreshControl : UIControl {
             UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
                 view.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
                 view.contentOffset = CGPoint(x:0, y:0)
-                }, completion: nil)
+            }, completion: nil)
             
             indicator.endAnimation()
         }
