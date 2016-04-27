@@ -9,7 +9,6 @@ public class ActivityIndicator: UIView {
         
         static let defaultLineWidth = CGFloat(4)
         static let defaultRadius = CGFloat(14)
-        static let margin = CGFloat(4)
         
         static let startAngle = CGFloat(-M_PI / 2)  // Start circle from the top
         static let totalAngle = CGFloat(2 * M_PI)  // Full circle
@@ -24,13 +23,7 @@ public class ActivityIndicator: UIView {
     
     public var progress:Float = 0 {
         didSet {
-            if progress > 1 {
-                progress = 1
-            }
-            if progress < 0 {
-                progress = 0
-            }
-            
+            progress = min(1, max(0, progress))
             if !animating
                 && superview != nil {
                 layoutSubviews()
@@ -51,10 +44,6 @@ public class ActivityIndicator: UIView {
     }
     
     public func endAnimation() {
-        if !animating {
-            return
-        }
-        
         layerLoader.strokeEnd = 0.0
         layerSeparator.strokeEnd = 1
         
@@ -89,11 +78,8 @@ public class ActivityIndicator: UIView {
     }
     
     public func beginAnimation() {
-        if animating {
-            return
-        }
-        
         layerLoader.removeAllAnimations()
+        
         layerSeparator.strokeEnd = 0
         layerLoader.strokeEnd = 1.0
         animating = true
@@ -120,7 +106,6 @@ public class ActivityIndicator: UIView {
         
         animateKeyPath(Constants.strokeEndPath, duration: totalSeconds, times: times, values: strokeEnds)
         animateKeyPath(Constants.rotationPath, duration: totalSeconds, times: times, values: rotations)
-        
         animateStrokeHueWithDuration(totalSeconds * 5)
     }
     
@@ -160,10 +145,9 @@ public class ActivityIndicator: UIView {
     }
     
     private func getLayoutCenter(superView:UIView) -> CGPoint {
-        let frame = superView.frame
-        let width = frame.size.width / 2 // Center of the super view
-        let height = frame.size.height - (Constants.defaultRadius * 2) - Constants.margin
-        let origin = frame.origin
+        let width = superView.bounds.width / 2 // Center of the super view
+        let height = max(superView.bounds.height - Constants.defaultRadius, CGFloat(0))
+        let origin = superView.bounds.origin
         
         let center = CGPoint(x: origin.x + width, y: origin.y + height)
         return center
