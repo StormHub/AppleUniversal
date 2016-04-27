@@ -23,7 +23,7 @@ public class ActivityIndicator: UIView {
     
     public var progress:Float = 0 {
         didSet {
-            progress = min(1, max(0, progress))
+            progress = progress.between(0, 1)
             if !animating
                 && superview != nil {
                 layoutSubviews()

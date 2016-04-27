@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2031E9A1CD164EB0017BF53 /* FloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2031E991CD164EB0017BF53 /* FloatExtension.swift */; };
 		B20598701C3797AF00C3D6F2 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AD6E271C3572C600D9E52F /* StringExtension.swift */; };
 		B20598711C3797B200C3D6F2 /* StringConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B205986E1C37970200C3D6F2 /* StringConversion.swift */; };
 		B20598731C3799BF00C3D6F2 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20598721C3799BF00C3D6F2 /* NSDateExtension.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B2031E991CD164EB0017BF53 /* FloatExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatExtension.swift; sourceTree = "<group>"; };
 		B205986E1C37970200C3D6F2 /* StringConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringConversion.swift; sourceTree = "<group>"; };
 		B20598721C3799BF00C3D6F2 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		B20DE1651CCB21E100E72FA5 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				B205986E1C37970200C3D6F2 /* StringConversion.swift */,
 				B20598721C3799BF00C3D6F2 /* NSDateExtension.swift */,
 				B28799171C38D80A006DACFA /* DurationExtension.swift */,
+				B2031E991CD164EB0017BF53 /* FloatExtension.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			files = (
 				B2AD6E281C3572C600D9E52F /* StringExtension.swift in Sources */,
 				B28799181C38D80A006DACFA /* DurationExtension.swift in Sources */,
+				B2031E9A1CD164EB0017BF53 /* FloatExtension.swift in Sources */,
 				B29738FF1C3A54D80066BCC6 /* ClientProxy.swift in Sources */,
 				B20DE1661CCB21E100E72FA5 /* ImagePicker.swift in Sources */,
 				B2677C611CCB89570091D80E /* ActivityIndicator.swift in Sources */,
