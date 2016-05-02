@@ -30,7 +30,7 @@ public class ImagePicker : NSObject, UIImagePickerControllerDelegate, UINavigati
     public func presentPicker(parentViewController:UIViewController, completion:((UIImage?) -> Void)) {
         
         self.completion = completion
-        self.parentViewController = parentViewController;
+        self.parentViewController = parentViewController
         
         let imagePickerActionSheet = UIAlertController(title: title, message: nil, preferredStyle: .ActionSheet)
         
