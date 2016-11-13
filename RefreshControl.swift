@@ -5,18 +5,18 @@ public enum IndicatorLocation {
     case top, bottom
 }
 
-public class RefreshControl : UIControl {
+open class RefreshControl : UIControl {
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let defaultHeight = CGFloat(46)
         static let margin = CGFloat(4)
     }
     
-    private var scrollView:UIScrollView? {
+    fileprivate var scrollView:UIScrollView? {
         return self.superview as? UIScrollView
     }
     
-    public var location: IndicatorLocation = .top {
+    open var location: IndicatorLocation = .top {
         didSet {
             if let view = scrollView {
                 indicator.endAnimation()
@@ -25,13 +25,13 @@ public class RefreshControl : UIControl {
         }
     }
     
-    private var indicator:ActivityIndicator
+    fileprivate var indicator:ActivityIndicator
     
     override init(frame: CGRect) {
         indicator = ActivityIndicator(frame: frame)
         super.init(frame: frame)
         
-        autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
         self.addSubview(indicator)
     }
     
@@ -43,45 +43,45 @@ public class RefreshControl : UIControl {
         removeFromScrollView()
     }
     
-    private func removeFromScrollView() {
+    fileprivate func removeFromScrollView() {
         if  self.scrollView != nil {
             removeFromSuperview()
         }
     }
     
-    private func refreshViewSizes(view:UIScrollView) {
+    fileprivate func refreshViewSizes(_ view:UIScrollView) {
         switch location {
         case .top:
-            self.frame = CGRectMake(view.frame.origin.x, -controlHeight, view.frame.size.width, controlHeight)
+            self.frame = CGRect(x: view.frame.origin.x, y: -controlHeight, width: view.frame.size.width, height: controlHeight)
             
         case .bottom:
-            self.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.contentSize.height + controlHeight)
+            self.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: view.contentSize.height + controlHeight)
         }
     }
     
-    private var controlHeight:CGFloat {
+    fileprivate var controlHeight:CGFloat {
         return location == .bottom
             ? Constants.defaultHeight - Constants.margin
             : Constants.defaultHeight + Constants.margin
     }
     
-    private var scrollContentInset = UIEdgeInsetsZero
+    fileprivate var scrollContentInset = UIEdgeInsets.zero
     
-    public func beginRefreshing() {
+    open func beginRefreshing() {
         if let view = scrollView {
             scrollContentInset = view.contentInset
             
             switch location {
                 
             case .top:
-                UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+                UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
                     view.contentInset.top = self.controlHeight
                     view.contentOffset.y = -self.controlHeight
                     }, completion: nil)
                 
             case .bottom:
                 
-                UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+                UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
                     view.contentInset.bottom = self.controlHeight
                     }, completion: nil)
             }
@@ -90,7 +90,7 @@ public class RefreshControl : UIControl {
         }
     }
     
-    public func endRefreshing() {
+    open func endRefreshing() {
         if let view = scrollView {
             
             switch location {
@@ -98,7 +98,7 @@ public class RefreshControl : UIControl {
             case .top:
                 let top = scrollContentInset.top
                 
-                UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+                UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
                     view.contentInset.top = top
                     view.contentOffset.y = 0  // Auto matically scroll to the top after refresh
                     }, completion: nil)
@@ -107,7 +107,7 @@ public class RefreshControl : UIControl {
                 
                 let bottom = scrollContentInset.bottom
                 
-                UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+                UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
                     view.contentInset.bottom = bottom
                     }, completion: nil)
             }
@@ -123,7 +123,7 @@ public class RefreshControl : UIControl {
             
             var progress = Float(0)
             
-            if view.dragging {
+            if view.isDragging {
                 
                 let delta = view.contentOffset.y
                 switch location {
@@ -148,9 +148,9 @@ public class RefreshControl : UIControl {
     
     func scrollViewDidEndDragging(willDecelerate decelerate: Bool) {
         if let view = scrollView {
-            if !view.dragging
+            if !view.isDragging
                 && indicator.progress.isCloseTo(1) {
-                sendActionsForControlEvents(UIControlEvents.ValueChanged)
+                sendActions(for: UIControlEvents.valueChanged)
             }
         }
     }

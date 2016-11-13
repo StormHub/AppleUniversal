@@ -17,16 +17,16 @@ public extension String {
     /*
       Gets the last index of the specified string
     */
-    public func lastIndexOf(target: String) -> String.Index? {
+    public func lastIndexOf(_ target: String) -> String.Index? {
         
-        var range = self.rangeOfString(target, options: NSStringCompareOptions.LiteralSearch)
+        var range = self.range(of: target, options: NSString.CompareOptions.literal)
         var index : String.Index? = nil
         
         while range != nil {
-            index = range!.startIndex
+            index = range!.lowerBound
             
-            let indexRange = range!.endIndex..<self.endIndex
-            range = self.rangeOfString(target, options: NSStringCompareOptions.LiteralSearch, range: indexRange)
+            let indexRange = range!.upperBound..<self.endIndex
+            range = self.range(of: target, options: NSString.CompareOptions.literal, range: indexRange)
         }
         
         return index;
@@ -37,9 +37,9 @@ public extension String {
     */
     public var split:String {
         var result = self
-        let range = result.startIndex..<result.endIndex
-        result = result.stringByReplacingOccurrencesOfString("([a-z])([A-Z])", withString: "$1 $2", options: NSStringCompareOptions.RegularExpressionSearch, range:range)
-        result.replaceRange(result.startIndex...result.startIndex, with: String(result[result.startIndex]).capitalizedString)
+        let range = self.characters.startIndex..<self.characters.endIndex
+        result = result.replacingOccurrences(of: "([a-z])([A-Z])", with: "$1 $2", options: NSString.CompareOptions.regularExpression, range:range)
+        result.replaceSubrange(result.startIndex...result.startIndex, with: String(result[result.startIndex]).capitalized)
         return result
     }
 }

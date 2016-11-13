@@ -2,15 +2,15 @@
 import UIKit
 import MobileCoreServices
 
-public class ImagePicker : NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+open class ImagePicker : NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    private let title:String
-    private let allowEditing:Bool
+    fileprivate let title:String
+    fileprivate let allowEditing:Bool
     
-    private var parentViewController:UIViewController?
-    private var completion:((image:UIImage?) -> Void)?
+    fileprivate var parentViewController:UIViewController?
+    fileprivate var completion:((_ image:UIImage?) -> Void)?
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let cameraAction = "Take Photo"
         static let photoLibraryAction = "Photo Library"
         static let cancelAction = "Cancel"
@@ -27,41 +27,41 @@ public class ImagePicker : NSObject, UIImagePickerControllerDelegate, UINavigati
         removedParentViewController()
     }
     
-    public func presentPicker(parentViewController:UIViewController, completion:((UIImage?) -> Void)) {
+    open func presentPicker(_ parentViewController:UIViewController, completion:@escaping ((UIImage?) -> Void)) {
         
         self.completion = completion
         self.parentViewController = parentViewController
         
-        let imagePickerActionSheet = UIAlertController(title: title, message: nil, preferredStyle: .ActionSheet)
+        let imagePickerActionSheet = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
         
         // Camera
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            let cameraButton = UIAlertAction(title: Constants.cameraAction, style: .Default) { (alert) -> Void in
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let cameraButton = UIAlertAction(title: Constants.cameraAction, style: .default) { (alert) -> Void in
                 
                 let imagePicker = UIImagePickerController()
-                imagePicker.sourceType = .Camera
+                imagePicker.sourceType = .camera
                 imagePicker.mediaTypes = [kUTTypeImage as String]
                 imagePicker.delegate = self
                 imagePicker.allowsEditing = self.allowEditing
                 
-                parentViewController.presentViewController(imagePicker, animated: true, completion: nil)
+                parentViewController.present(imagePicker, animated: true, completion: nil)
             }
             
             imagePickerActionSheet.addAction(cameraButton)
         }
         
         // Photo library
-        if UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) {
-            let libraryButton = UIAlertAction(title: Constants.photoLibraryAction, style: .Default) { (alert) -> Void in
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let libraryButton = UIAlertAction(title: Constants.photoLibraryAction, style: .default) { (alert) -> Void in
                 
                 let imagePicker = UIImagePickerController()
-                imagePicker.sourceType = .PhotoLibrary
+                imagePicker.sourceType = .photoLibrary
                 imagePicker.mediaTypes = [kUTTypeImage as String]
                 imagePicker.delegate = self
                 imagePicker.allowsEditing = self.allowEditing
                 
                 NSLog("PickerController deleage = \(imagePicker.delegate)")
-                parentViewController.presentViewController(imagePicker, animated: true, completion: nil)
+                parentViewController.present(imagePicker, animated: true, completion: nil)
             }
             
             imagePickerActionSheet.addAction(libraryButton)
@@ -69,41 +69,41 @@ public class ImagePicker : NSObject, UIImagePickerControllerDelegate, UINavigati
         
         // Cancel
         if imagePickerActionSheet.actions.count > 0 {
-            let cancelButton = UIAlertAction(title: Constants.cancelAction, style: .Cancel) { (alert) -> Void in
+            let cancelButton = UIAlertAction(title: Constants.cancelAction, style: .cancel) { (alert) -> Void in
                 NSLog("[ImagePicker] Image picker cancelled")
             }
             imagePickerActionSheet.addAction(cancelButton)
         }
         
-        parentViewController.presentViewController(imagePickerActionSheet, animated: true, completion: nil)
+        parentViewController.present(imagePickerActionSheet, animated: true, completion: nil)
         
     }
     
-    public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         NSLog("[ImagePicker] Controller image selected")
         
         let image = (allowEditing ? info[UIImagePickerControllerEditedImage] : info[UIImagePickerControllerOriginalImage]) as? UIImage
         
         let handler = self.completion
-        parentViewController?.dismissViewControllerAnimated(true) {
-            handler?(image: image)
+        parentViewController?.dismiss(animated: true) {
+            handler?(image)
         }
         
         removedParentViewController()
     }
     
-    public func imagePickerControllerDidCancel(picker:UIImagePickerController) {
+    open func imagePickerControllerDidCancel(_ picker:UIImagePickerController) {
         NSLog("[ImagePicker] Controller image selection cancelled")
         
         let handler = self.completion
-        parentViewController?.dismissViewControllerAnimated(true) {
-            handler?(image: nil)
+        parentViewController?.dismiss(animated: true) {
+            handler?(nil)
         }
         
         removedParentViewController()
     }
     
-    private func removedParentViewController() {
+    fileprivate func removedParentViewController() {
         parentViewController = nil
         completion = nil
     }

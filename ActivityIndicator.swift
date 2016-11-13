@@ -1,11 +1,11 @@
 
 import UIKit
 
-public class ActivityIndicator: UIView {
+open class ActivityIndicator: UIView {
     
-    private struct Constants {
-        static let defaultStrokeColor = UIColor.blueColor().CGColor
-        static let defaultFillColor = UIColor.clearColor().CGColor
+    fileprivate struct Constants {
+        static let defaultStrokeColor = UIColor.blue.cgColor
+        static let defaultFillColor = UIColor.clear.cgColor
         
         static let defaultLineWidth = CGFloat(4)
         static let defaultRadius = CGFloat(14)
@@ -18,10 +18,10 @@ public class ActivityIndicator: UIView {
         static let rotationPath = "transform.rotation"
     }
     
-    private let layerLoader = CAShapeLayer()
-    private let layerSeparator = CAShapeLayer()
+    fileprivate let layerLoader = CAShapeLayer()
+    fileprivate let layerSeparator = CAShapeLayer()
     
-    public var progress:Float = 0 {
+    open var progress:Float = 0 {
         didSet {
             progress = progress.between(0, 1)
             if !animating
@@ -31,11 +31,11 @@ public class ActivityIndicator: UIView {
         }
     }
     
-    public var isAnimating: Bool {
+    open var isAnimating: Bool {
         return animating
     }
     
-    private var animating: Bool = false {
+    fileprivate var animating: Bool = false {
         didSet {
             if !animating {
                 layoutSubviews()
@@ -43,7 +43,7 @@ public class ActivityIndicator: UIView {
         }
     }
     
-    public func endAnimation() {
+    open func endAnimation() {
         layerLoader.strokeEnd = 0.0
         layerSeparator.strokeEnd = 1
         
@@ -62,7 +62,7 @@ public class ActivityIndicator: UIView {
         }
     }
     
-    private class var poses: [Pose] {
+    fileprivate class var poses: [Pose] {
         get {
             return [
                 Pose(0.0, 0.000, 0.7),
@@ -77,7 +77,7 @@ public class ActivityIndicator: UIView {
         }
     }
     
-    public func beginAnimation() {
+    open func beginAnimation() {
         layerLoader.removeAllAnimations()
         
         layerSeparator.strokeEnd = 0
@@ -90,9 +90,9 @@ public class ActivityIndicator: UIView {
         var rotations = [CGFloat]()
         var strokeEnds = [CGFloat]()
         
-        let totalSeconds = self.dynamicType.poses.reduce(0) { $0 + $1.secondsSincePriorPose }
+        let totalSeconds = type(of: self).poses.reduce(0) { $0 + $1.secondsSincePriorPose }
         
-        for pose in self.dynamicType.poses {
+        for pose in type(of: self).poses {
             time += pose.secondsSincePriorPose
             times.append(time / totalSeconds)
             start = pose.start
@@ -109,42 +109,42 @@ public class ActivityIndicator: UIView {
         animateStrokeHueWithDuration(totalSeconds * 5)
     }
     
-    private func animateKeyPath(keyPath: String, duration: CFTimeInterval, times: [CFTimeInterval], values: [CGFloat]) {
+    fileprivate func animateKeyPath(_ keyPath: String, duration: CFTimeInterval, times: [CFTimeInterval], values: [CGFloat]) {
         let animation = CAKeyframeAnimation(keyPath: keyPath)
-        animation.keyTimes = times
+        animation.keyTimes = times as [NSNumber]?
         animation.values = values
         animation.calculationMode = kCAAnimationLinear
         animation.duration = duration
         animation.repeatCount = Float.infinity
         
-        layerLoader.addAnimation(animation, forKey: animation.keyPath)
+        layerLoader.add(animation, forKey: animation.keyPath)
     }
     
-    private func animateStrokeHueWithDuration(duration: CFTimeInterval) {
+    fileprivate func animateStrokeHueWithDuration(_ duration: CFTimeInterval) {
         let count = 36
         
         let animation = CAKeyframeAnimation(keyPath: Constants.strokeColorPath)
         
-        animation.keyTimes = (0 ... count).map { CFTimeInterval($0) / CFTimeInterval(count) }
+        animation.keyTimes = (0 ... count).map { NSNumber(value: CFTimeInterval($0) / CFTimeInterval(count)) }
         animation.values = (0 ... count).map {
-            UIColor(hue: CGFloat($0) / CGFloat(count), saturation: 1, brightness: 1, alpha: 1).CGColor
+            UIColor(hue: CGFloat($0) / CGFloat(count), saturation: 1, brightness: 1, alpha: 1).cgColor
         }
         
         animation.duration = duration
         animation.calculationMode = kCAAnimationLinear
         animation.repeatCount = Float.infinity
         
-        layerLoader.addAnimation(animation, forKey: animation.keyPath)
+        layerLoader.add(animation, forKey: animation.keyPath)
     }
     
-    override public func willMoveToSuperview(newSuperview: UIView?) {
+    override open func willMove(toSuperview newSuperview: UIView?) {
         if let newView = newSuperview {
-            self.backgroundColor = UIColor.clearColor()
+            self.backgroundColor = UIColor.clear
             self.frame = newView.frame
         }
     }
     
-    private func getLayoutCenter(superView:UIView) -> CGPoint {
+    fileprivate func getLayoutCenter(_ superView:UIView) -> CGPoint {
         let width = superView.bounds.width / 2 // Center of the super view
         let height = max(superView.bounds.height - Constants.defaultRadius, CGFloat(0))
         let origin = superView.bounds.origin
@@ -153,7 +153,7 @@ public class ActivityIndicator: UIView {
         return center
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         if let superview = superview {
             if layerSeparator.superlayer == nil {
                 superview.layer.addSublayer(layerSeparator)
@@ -168,13 +168,13 @@ public class ActivityIndicator: UIView {
             let progressPath = UIBezierPath(arcCenter: center, radius: Constants.defaultRadius, startAngle: Constants.startAngle, endAngle: endAngle, clockwise: true)
             layerSeparator.fillColor = Constants.defaultFillColor
             layerSeparator.strokeColor = Constants.defaultStrokeColor
-            layerSeparator.path = progressPath.CGPath
+            layerSeparator.path = progressPath.cgPath
             
             let loaderEndAngle = Constants.startAngle + Constants.totalAngle
-            let loaderPath = UIBezierPath(arcCenter: CGPointZero, radius: Constants.defaultRadius, startAngle: Constants.startAngle, endAngle: loaderEndAngle, clockwise: true)
+            let loaderPath = UIBezierPath(arcCenter: CGPoint.zero, radius: Constants.defaultRadius, startAngle: Constants.startAngle, endAngle: loaderEndAngle, clockwise: true)
             layerLoader.fillColor = Constants.defaultFillColor
             layerLoader.strokeColor = Constants.defaultStrokeColor
-            layerLoader.path = loaderPath.CGPath
+            layerLoader.path = loaderPath.cgPath
             layerLoader.position = center
             layerLoader.strokeEnd = 0.0 // Do not draw initially
         }

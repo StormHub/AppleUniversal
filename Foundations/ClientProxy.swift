@@ -5,22 +5,22 @@ import Foundation
 /*
  Represent client communication failed responses
 */
-public enum CommunicationError : ErrorType {
+public enum CommunicationError : Error {
     
     /*
        Indicates HTTP network connection failed
      */
-    case ConnectionFailure(reason: String)
+    case connectionFailure(reason: String)
     
     /*
        Indicates the response is not OK status
      */
-    case BadResponse(content: String)
+    case badResponse(content: String)
     
     /*
        Indicates the response is not the three possible JSON body
     */
-    case UnknownResponseType(content: String)
+    case unknownResponseType(content: String)
 }
 
 /*
@@ -53,18 +53,18 @@ public protocol JsonResponseHandler {
 /*
   Provides client side REST web service client
 */
-public class HttpClientProxy {
+open class HttpClientProxy {
     
-    private let HttpOkStatusCode = 200
+    fileprivate let HttpOkStatusCode = 200
     
-    private struct HttpMethod {
+    fileprivate struct HttpMethod {
         static let Get = "GET"
         static let Post = "POST"
         static let Put = "PUT"
         static let Delete = "DELETE"
     }
     
-    private let url:String
+    fileprivate let url:String
     
     /*
         Initialize the client proxy, if the url is empty
@@ -81,7 +81,7 @@ public class HttpClientProxy {
     /*
       Requests the url for HTTP Get method with optional HTTP body data
     */
-    public func get(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
+    open func get(_ responseHandler: JsonResponseHandler, bodyData: Data? = nil) {
         let request = createRequest(HttpMethod.Get, bodyData: bodyData)
         execute(request, responseHandler: responseHandler)
     }
@@ -89,7 +89,7 @@ public class HttpClientProxy {
     /*
       Requests the url for HTTP POST method with optional HTTP body data
     */
-    public func post(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
+    open func post(_ responseHandler: JsonResponseHandler, bodyData: Data? = nil) {
         let request = createRequest(HttpMethod.Post, bodyData:bodyData)
         execute(request, responseHandler: responseHandler)
     }
@@ -97,7 +97,7 @@ public class HttpClientProxy {
     /*
     Requests the url for HTTP PUT method with optional HTTP body data
     */
-    public func put(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
+    open func put(_ responseHandler: JsonResponseHandler, bodyData: Data? = nil) {
         let request = createRequest(HttpMethod.Put, bodyData:bodyData)
         execute(request, responseHandler: responseHandler)
     }
@@ -105,7 +105,7 @@ public class HttpClientProxy {
     /*
     Requests the url for HTTP PUT method with optional HTTP body data
     */
-    public func delete(responseHandler: JsonResponseHandler, bodyData: NSData? = nil) {
+    open func delete(_ responseHandler: JsonResponseHandler, bodyData: Data? = nil) {
         let request = createRequest(HttpMethod.Delete, bodyData:bodyData)
         execute(request, responseHandler: responseHandler)
     }
@@ -113,15 +113,13 @@ public class HttpClientProxy {
     /*
        Creates the HTTP request instances.
     */
-    private func createRequest(method:String, bodyData: NSData? = nil) -> NSMutableURLRequest {
-        let nsUrl = NSURL(string: self.url)
-        let request = NSMutableURLRequest(URL: nsUrl!)
-        
+    fileprivate func createRequest(_ method:String, bodyData: Data? = nil) -> URLRequest {
+        let url = URL(string:self.url)
+        var request = URLRequest(url: url!)
+        request.httpMethod = method
         if let data = bodyData {
-            request.HTTPBody = data
+            request.httpBody = data
         }
-        
-        request.HTTPMethod = method
         
         return request;
     }
@@ -129,46 +127,46 @@ public class HttpClientProxy {
     /*
        Executes the request for share HTTP session
     */
-    private func execute(request: NSMutableURLRequest, responseHandler: JsonResponseHandler) {
-        let session =  NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request, completionHandler: {(data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-            
+    fileprivate func execute(_ request: URLRequest, responseHandler: JsonResponseHandler) {
+        let session =  URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: {(data:Data?, response:URLResponse?, error:Error?) -> Void in
             guard error == nil else {
-                responseHandler.handleError(CommunicationError.ConnectionFailure(reason: error!.description))
+                
+                responseHandler.handleError(error: CommunicationError.connectionFailure(reason: error!.localizedDescription))
                 return
             }
             
-            guard let httpResponse = response as? NSHTTPURLResponse where
+            guard let httpResponse = response as? HTTPURLResponse ,
                 httpResponse.statusCode != self.HttpOkStatusCode else {
-                    responseHandler.handleError(CommunicationError.BadResponse(content: response!.description))
+                    responseHandler.handleError(error: CommunicationError.badResponse(content: response!.description))
                     return
             }
             
             do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions.MutableContainers)
+                let json = try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions.mutableContainers)
                 
                 // JSON dictionary
                 if  let dictionary = json as? Dictionary<String,AnyObject> {
-                    responseHandler.handleDictionaryData(dictionary)
+                    responseHandler.handleDictionaryData(dictionary: dictionary)
                     return
                 }
                 
                 // JSON array
                 if let array = json as? Array<AnyObject> {
-                    responseHandler.handleArrayData(array)
+                    responseHandler.handleArrayData(array:array)
                     return
                 }
                 
                 // JSON object
                 if let objectData = json as? NSObject {
-                    responseHandler.handleData(objectData)
+                    responseHandler.handleData(data: objectData)
                      return
                 }
                 
                 // Unknown
-                responseHandler.handleError(CommunicationError.UnknownResponseType(content: data!.description))
+                responseHandler.handleError(error: CommunicationError.unknownResponseType(content: data!.description))
             } catch {
-                responseHandler.handleError(CommunicationError.BadResponse(content:data!.description))
+                responseHandler.handleError(error: CommunicationError.badResponse(content:data!.description))
             }
         })
         

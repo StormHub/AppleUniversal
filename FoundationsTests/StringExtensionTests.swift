@@ -25,18 +25,18 @@ class StringExtensionTests: XCTestCase {
         let target = "SomeStringsomestring"
         let index = target.lastIndexOf("String")
         XCTAssertNotNil(index)
-        XCTAssertEqual(index!, target.startIndex.advancedBy("Some".length))
+        XCTAssertEqual(index!, target.characters.index(target.startIndex, offsetBy: "Some".length))
         
         let index1 = target.lastIndexOf("string")
         XCTAssertNotNil(index1)
-        XCTAssertEqual(index1!, target.startIndex.advancedBy("SomeStringsome".length))
+        XCTAssertEqual(index1!, target.characters.index(target.startIndex, offsetBy: "SomeStringsome".length))
         
         let index2 = target.lastIndexOf("S")
         XCTAssertNotNil(index2)
-        XCTAssertEqual(index2!, target.startIndex.advancedBy("Some".length))
+        XCTAssertEqual(index2!, target.characters.index(target.startIndex, offsetBy: "Some".length))
         
         let index3 = target.lastIndexOf("s")
         XCTAssertNotNil(index3)
-        XCTAssertEqual(index3!, target.startIndex.advancedBy("SomeStringsome".length))
+        XCTAssertEqual(index3!, target.characters.index(target.startIndex, offsetBy: "SomeStringsome".length))
     }
 }

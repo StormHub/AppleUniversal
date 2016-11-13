@@ -1,21 +1,21 @@
 
 import Foundation
 
-public extension NSDate {
+public extension Date {
 
     /* 
         Get the time description in English relative to now
     */
     public var relativeDescription : String {
-        return self.relativeDescriptionTo(NSDate())
+        return self.relativeDescriptionTo(Date())
     }
     
-    internal func relativeDescriptionTo(relativeTo: NSDate) -> String {
+    internal func relativeDescriptionTo(_ relativeTo: Date) -> String {
         let target = relativeTo.timeIntervalSince1970
         let current = self.timeIntervalSince1970
         
         // get rid of the nanosecond part
-        let delta = Int64(current.distanceTo(target))
+        let delta = Int64(current.distance(to: target))
         if delta <= 0 {
             // either the time is exactly the same
             // or reference time is later than this time
@@ -77,49 +77,49 @@ public extension NSDate {
        Gets the year of the NSDate in UTC
      */
     public var year : Int {
-        return NSCalendar.currentAtUniversal.component(NSCalendarUnit.Year, fromDate: self)
+        return (Calendar.currentAtUniversal as NSCalendar).component(NSCalendar.Unit.year, from: self)
     }
     
     /*
        Gets the month of the NSDate in UTC
      */
     public var  month : Int {
-        return NSCalendar.currentAtUniversal.component(NSCalendarUnit.Month, fromDate: self)
+        return (Calendar.currentAtUniversal as NSCalendar).component(NSCalendar.Unit.month, from: self)
     }
     
     /*
        Gets the day of the NSDate in UTC
      */
     public var day : Int {
-        return NSCalendar.currentAtUniversal.component(NSCalendarUnit.Day, fromDate: self)
+        return (Calendar.currentAtUniversal as NSCalendar).component(NSCalendar.Unit.day, from: self)
     }
 
     /*
       Gets the hour of the NSDate in UTC
     */
     public var hour : Int {
-        return NSCalendar.currentAtUniversal.component(NSCalendarUnit.Hour, fromDate: self)
+        return (Calendar.currentAtUniversal as NSCalendar).component(NSCalendar.Unit.hour, from: self)
     }
     
     /*
        Gets the minute of the NSDate in UTC
      */
     public var minute : Int {
-        return NSCalendar.currentAtUniversal.component(NSCalendarUnit.Minute, fromDate: self)
+        return (Calendar.currentAtUniversal as NSCalendar).component(NSCalendar.Unit.minute, from: self)
     }
 
     /*
        Gets the minute of the NSDate in UTC
      */
     public var second : Int {
-        return NSCalendar.currentAtUniversal.component(NSCalendarUnit.Second, fromDate: self)
+        return (Calendar.currentAtUniversal as NSCalendar).component(NSCalendar.Unit.second, from: self)
     }
     
     /*
        Gets the nano second of the NSDate in UTC
      */
     public var nanoSecond : Int {
-        return NSCalendar.currentAtUniversal.component(NSCalendarUnit.Nanosecond, fromDate: self)
+        return (Calendar.currentAtUniversal as NSCalendar).component(NSCalendar.Unit.nanosecond, from: self)
     }
     
     /*
@@ -127,22 +127,22 @@ public extension NSDate {
     */
     public var mediumStyle: String {
         
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .MediumStyle
-        formatter.timeStyle = .MediumStyle
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
         
-        return formatter.stringFromDate(self)
+        return formatter.string(from: self)
     }
 }
 
-public extension NSCalendar {
+public extension Calendar {
     
     /*
        Gets the current calendar at universal time zone
     */
-    public class var currentAtUniversal : NSCalendar {
-        let calendar = NSCalendar.currentCalendar()
-        calendar.timeZone = NSTimeZone(abbreviation:"UTC")!
+    public static var currentAtUniversal : Calendar {
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(abbreviation:"UTC")!
 
         return calendar
     }
